@@ -23,7 +23,7 @@
 hs_err_pid*
 
 ### IntelliJ IDEA ###
-out
+target
 .idea
 *.iws
 *.iml
