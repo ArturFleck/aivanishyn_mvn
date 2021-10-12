@@ -1,6 +1,7 @@
 package Homework_16;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class StringCollectionImpl implements StringCollection {
     private String[] array = new String[0];
@@ -17,9 +18,7 @@ public class StringCollectionImpl implements StringCollection {
     @Override
     public boolean add(String str) {
         String[] newArr = new String[array.length + 1];
-        for (int x = 0; x < array.length; x++) {
-            newArr[x] = array[x];
-        }
+        System.arraycopy(array, 0, newArr, 0, array.length);
         newArr[newArr.length - 1] = str;
         this.array = newArr;
         return true;
@@ -34,9 +33,7 @@ public class StringCollectionImpl implements StringCollection {
         String[] newArr = new String[array.length + 1];
         if (index == 0) {   // if our new member index equals 0, which means our first member so we put it in a head and shift old array
             newArr[0] = str;
-            for (int x = 0; x < array.length; x++) {
-                newArr[x + 1] = array[x];
-            }
+            System.arraycopy(array, 0, newArr, 1, array.length);
         } else if (index == newArr.length)  // if new member have index bigger than length of our array than we put it in a tail
         {
             add(str);
@@ -64,9 +61,9 @@ public class StringCollectionImpl implements StringCollection {
         if (contains(str)) {
             String[] newArr = new String[array.length - 1];
             int i = 0;
-            for (int x = 0; x < array.length; x++) {
-                if (array[i] != str) {
-                    newArr[i] = array[x];
+            for (String s : array) {
+                if (!Objects.equals(array[i], str)) {
+                    newArr[i] = s;
                     i++;
                 }
             }
@@ -79,16 +76,13 @@ public class StringCollectionImpl implements StringCollection {
     @Override
     public boolean contains(String str) {
         boolean x = false;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == str) {
+        for (String s : array) {
+            if (Objects.equals(s, str)) {
                 x = true;
+                break;
             }
         }
-        if (x) {
-            return true;
-        } else {
-            return false;
-        }
+        return x;
     }
 
     @Override
@@ -136,6 +130,7 @@ public class StringCollectionImpl implements StringCollection {
     public int hashCode() {
         return Arrays.hashCode(array);
     }
+
     @Override
     public String toString() {
         return "StringCollectionImpl{" +
