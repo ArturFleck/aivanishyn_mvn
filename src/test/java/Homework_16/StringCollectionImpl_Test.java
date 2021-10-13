@@ -23,7 +23,7 @@ public class StringCollectionImpl_Test {
     }
 
     @Test
-    public void test_get_null() {
+    public void test_get_null_when_wrong_index() {
         Assertions.assertNull(data.get(1));
     }
 
@@ -42,7 +42,7 @@ public class StringCollectionImpl_Test {
     }
 
     @Test
-    public void test_addByIndex() {
+    public void test_add_by_index() {
         data.add("one");
         data.add("two");
         String str = "Some Text";
