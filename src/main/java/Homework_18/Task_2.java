@@ -2,6 +2,7 @@ package Homework_18;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,10 +11,13 @@ public class Task_2 {
         List<String> stringList = new ArrayList<>();
         fillTheList(stringList);
 
-        sortList(stringList);
+        //sortList(stringList);
 
         stringList.stream()
+
                 .map(String::toUpperCase)
+                .filter(line -> (line.startsWith("F"))||(line.startsWith("B")))
+
                 //.collect(Collectors.toList())
                 .forEach(System.out::println);
         System.out.println("-------------");
@@ -61,6 +65,7 @@ public class Task_2 {
 
     public static List<String> sortList(List<String> stringList){
              stringList.stream()
+                     .sorted(Comparator.comparing(line -> line.startsWith("A")))
                      .map(String::toUpperCase)
                      .filter(line -> line.startsWith("A"))
                      .filter(line -> line.startsWith("E"))
@@ -68,8 +73,8 @@ public class Task_2 {
                      .filter(line -> line.startsWith("O"))
                      .filter(line -> line.startsWith("U"))
                      .filter(line -> line.startsWith("Y"))
-                     .peek(System.out::println)
-                     .collect(Collectors.toList());
+                     .peek(System.out::println);
+                     //.collect(Collectors.toList());
         return stringList;
     }
 }
