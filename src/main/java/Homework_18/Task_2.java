@@ -8,6 +8,26 @@ import java.util.stream.Collectors;
 public class Task_2 {
     public static void main(String[] args) {
         List<String> stringList = new ArrayList<>();
+        fillTheList(stringList);
+
+        sortList(stringList);
+
+        stringList.stream()
+                .map(String::toUpperCase)
+                //.collect(Collectors.toList())
+                .forEach(System.out::println);
+        System.out.println("-------------");
+
+        //stringList.stream().forEach(System.out::println);
+
+        /*List<String> newValues = stringList.stream().map(String::toUpperCase)
+                .peek(System.out::println).collect(Collectors.toList());
+
+        System.out.println("-------------");*/
+
+    }
+
+    public static boolean fillTheList(List<String> stringList) {
         String str = "Far off in the distance, the storm's closing in\n" +
                 "The pressure collapsing, bright skies become dim\n" +
                 /*"This scent all around me, give memories new life\n" +
@@ -34,23 +54,22 @@ public class Task_2 {
                 "You can burn up the book, but the pages survive";
         str = str.replace("?", "");
         str = str.replace(",", "");
-/*        String[] arr = str.split(" ");
-        stringList.addAll(Arrays.asList(arr));*/
-        stringList = Arrays.asList(str.split(" "));
-        //stringList.stream().forEach(System.out::println);
-        System.out.println("-------------");
-        stringList.stream()
-                .map(String::toUpperCase)
-                .collect(Collectors.toList())
-                .forEach(System.out::println);
-        System.out.println("-------------");
+        String[] arr = str.split(" ");
+        //stringList = Arrays.asList(str.split(" "));
+        return stringList.addAll(Arrays.asList(arr));
+    }
 
-        stringList.stream().forEach(System.out::println);
-
-        /*List<String> newValues = stringList.stream().map(String::toUpperCase)
-                .peek(System.out::println).collect(Collectors.toList());
-
-        System.out.println("-------------");*/
-
+    public static List<String> sortList(List<String> stringList){
+             stringList.stream()
+                     .map(String::toUpperCase)
+                     .filter(line -> line.startsWith("A"))
+                     .filter(line -> line.startsWith("E"))
+                     .filter(line -> line.startsWith("I"))
+                     .filter(line -> line.startsWith("O"))
+                     .filter(line -> line.startsWith("U"))
+                     .filter(line -> line.startsWith("Y"))
+                     .peek(System.out::println)
+                     .collect(Collectors.toList());
+        return stringList;
     }
 }
