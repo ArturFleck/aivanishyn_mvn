@@ -7,22 +7,13 @@ import java.util.stream.Collectors;
 
 public class Task_2 {
     public static void main(String[] args) {
-        List<String> stringList = new ArrayList<>();
-        fillTheList(stringList);
-
-        List<String> list = new ArrayList<>(sortList(stringList));
-
-        list.forEach(System.out::println);
-
-        System.out.println("-------------");
-
-        /*List<String> newValues = stringList.stream().map(String::toUpperCase)
-                .peek(System.out::println).collect(Collectors.toList());
-        System.out.println("-------------");*/
-
+        List<String> stringList = new ArrayList<>();    // creating List of strings
+        fillTheList(stringList);                        // filling List with data
+        sortList(stringList);                           // filtering List and rewrite it
+        stringList.forEach(System.out::println);        // printing List
     }
 
-    public static boolean fillTheList(List<String> stringList) {
+    public static void fillTheList(List<String> stringList) {
         String str = "Far off in the distance, the storm's closing in\n" +
                 "The pressure collapsing, bright skies become dim\n" +
                 "This scent all around me, give memories new life\n" +
@@ -47,16 +38,19 @@ public class Task_2 {
                 "Battered and bruised, bones breaking, teeth bite\n" +
                 "Tattered and torn, pour gas on my life\n" +
                 "You can burn up the book, but the pages survive";
-        str = str.replace("?", "").replace(",","").replace("\n", " ");
+        str = str.replace("?", "").replace(",", "").replace("\n", " "); // cleaning our string
         String[] arr = str.split(" ");
-        //stringList = Arrays.asList(str.split(" "));
-        return stringList.addAll(Arrays.asList(arr));
+        stringList.addAll(Arrays.asList(arr)); // filling our list
     }
 
-    public static List<String> sortList(List<String> stringList){
-        return stringList.stream()
+    public static void sortList(List<String> stringList) {
+        List<String> outStringList = new ArrayList<>();
+        outStringList.addAll(stringList.stream()
+                //.peek(System.out::println) // print stream
                 .map(String::toUpperCase)
                 .filter(line -> (line.startsWith("A")) || (line.startsWith("E")) || (line.startsWith("I")) || (line.startsWith("O")) || (line.startsWith("U")) || (line.startsWith("Y")))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+        stringList.clear();
+        stringList.addAll(outStringList.stream().collect(Collectors.toList()));
     }
 }
