@@ -11,6 +11,7 @@ public class Task_2 {
         fillTheList(stringList);                        // filling List with data
         sortList(stringList);                           // filtering List and rewrite it
         stringList.forEach(System.out::println);        // printing List
+
     }
 
     public static void fillTheList(List<String> stringList) {
