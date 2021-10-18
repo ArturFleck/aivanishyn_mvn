@@ -9,7 +9,7 @@ public class Task_2_3 {
         fillTheList(stringList);                                    // filling List with data
 
         System.out.println(sortByLowerCaseAndLength(stringList));   // sort collection by lowercase and y words length equal 4, not return or rewrite collection only printing in console
-
+        sortByLowerCaseAndLength(stringList);
         System.out.println("--------------");
 
         sortList(stringList);                                       // filtering List and rewrite it
