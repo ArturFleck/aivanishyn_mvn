@@ -1,4 +1,4 @@
-package Homework_18;
+package homework_18;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

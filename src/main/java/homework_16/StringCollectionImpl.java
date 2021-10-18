@@ -1,4 +1,4 @@
-package Homework_16;
+package homework_16;
 
 import java.util.Arrays;
 import java.util.Objects;

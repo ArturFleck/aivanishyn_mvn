@@ -1,4 +1,4 @@
-package Homework_18;
+package homework_18;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,6 @@ public class Task_1 {
         System.out.println(intList);
         //System.out.println("Average of Array is: " + intList.stream().mapToInt(a -> a).average().orElse(0));
         System.out.println(average(intList));
-
     }
 
     public static double average(List<Integer> intList){

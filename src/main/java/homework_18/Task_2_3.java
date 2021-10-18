@@ -1,4 +1,4 @@
-package Homework_18;
+package homework_18;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,8 +52,9 @@ public class Task_2_3 {
         outStringList.addAll(stringList.stream()
                 //.peek(System.out::println)    // print stream
                 .map(String::toUpperCase)       // make all words UpperCase
-                                // leave only words with vowels
-                .filter(line -> (line.startsWith("A")) || (line.startsWith("E")) || (line.startsWith("I")) || (line.startsWith("O")) || (line.startsWith("U")) || (line.startsWith("Y"))|| (line.startsWith("W")))
+                // leave only words with vowels
+                //.filter(line -> (line.startsWith("A")) || (line.startsWith("E")) || (line.startsWith("I")) || (line.startsWith("O")) || (line.startsWith("U")) || (line.startsWith("Y"))|| (line.startsWith("W")))
+                .filter(x -> x.matches("^[AEIOUYW].*$")) // works
                 .collect(Collectors.toList()));
         stringList.clear();
         stringList.addAll(outStringList.stream().collect(Collectors.toList()));
@@ -67,9 +68,9 @@ public class Task_2_3 {
                 .filter(word -> word.length() == 4)                             // finding words with length equal 4
                 //.filter(line -> line.startsWith ("s"))                        // find word stars with letter S
                 //.filter(w -> w.equals(w.toUpperCase()))                       // find all words consist of uppercase
-                .filter(w->w.contains(w.toLowerCase()))                         // find word contain only lowercase
+                .filter(w -> w.contains(w.toLowerCase()))                         // find word contain only lowercase
                 //.filter(w->w.startsWith(w.toLowerCase()))                     // same as /\ above
                 .collect(Collectors.toList());
-                //.forEach(System.out::println);         // if I'm printing from stream I don't know how to catch it in test. maybe I should use some console captor.. https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
+        //.forEach(System.out::println);         // if I'm printing from stream I don't know how to catch it in test. maybe I should use some console captor.. https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
     }
 }

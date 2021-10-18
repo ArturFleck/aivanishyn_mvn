@@ -1,4 +1,4 @@
-package Homework_16;
+package homework_16;
 
 public interface StringCollection {
     String get(int index);

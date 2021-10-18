@@ -1,4 +1,4 @@
-package Homework_16;
+package homework_16;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
