@@ -10,6 +10,6 @@ public class Employee {
     private int id;
     String FirstName;
     String LastName;
-    String DepartmentID;
+    int DepartmentID;
 
 }

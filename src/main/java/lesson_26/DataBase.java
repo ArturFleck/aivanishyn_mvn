@@ -23,26 +23,29 @@ public class DataBase {
             int id = rs.getInt("ID");
             String first_name = rs.getString("first_name");
             String second_name = rs.getString("last_name");
-            String dep_id = rs.getString("department_id");
+            int dep_id = rs.getInt("department_id");
 
             String p = id + " " + first_name + " " + second_name + " " + dep_id;
             System.out.println(p);
         }
 
-        List<Employee> employees = new ArrayList<>();
+        List<Employee> emp = new ArrayList<>();
+
+/*        Employee e = new Employee(2,"asd","asdsd",3);
+        emp.add(e);*/
 
         while (rs.next()) {
             int id = rs.getInt("ID");
             String first_name = rs.getString("first_name");
             String last_name = rs.getString("last_name");
-            String dep_id = rs.getString("department_id");
+            int dep_id = rs.getInt("department_id");
 
-            Employee e = new Employee(id, first_name, last_name, dep_id);
-            employees.add(e);
+            Employee asd = new Employee(id, first_name, last_name, dep_id);
+            emp.add(asd);
         }
 
         System.out.println("----------");
-        System.out.println(employees);
+        System.out.println(emp.size());
 
         connection.close();
 
