@@ -8,8 +8,8 @@ import lombok.Data;
 public class Employee {
 
     private int id;
-    String FirstName;
-    String LastName;
-    int DepartmentID;
+    private String FirstName;
+    private String LastName;
+    private int DepartmentID;
 
 }
