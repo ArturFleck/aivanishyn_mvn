@@ -20,7 +20,7 @@ public class DataBase {
         System.out.println(rs.getMetaData().getTableName(1));
         System.out.println(rs.getMetaData().getColumnCount());
 
-        while (rs.next()) {
+/*        while (rs.next()) {
             int id = rs.getInt("ID");
             String first_name = rs.getString("first_name");
             String second_name = rs.getString("last_name");
@@ -28,7 +28,7 @@ public class DataBase {
 
             String p = id + " " + first_name + " " + second_name + " " + dep_id;
             System.out.println(p);
-        }
+        }*/
 
         List<Employee> emp = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class DataBase {
         }
 
         System.out.println("----------");
-        System.out.println(emp.size());
+        System.out.println(emp);
 
         connection.close();
 

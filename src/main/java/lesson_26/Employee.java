@@ -12,4 +12,13 @@ public class Employee {
     private String LastName;
     private int DepartmentID;
 
+    @Override
+    public String toString() {
+        return "\nEmployee{" +
+                "id=" + id +
+                ", FirstName='" + FirstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", DepartmentID=" + DepartmentID +
+                '}';
+    }
 }
