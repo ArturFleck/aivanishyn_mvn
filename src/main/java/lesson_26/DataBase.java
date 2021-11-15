@@ -48,6 +48,12 @@ public class DataBase {
         System.out.println("----------");
         System.out.println(emp);
 
+        String insertDep = "insert into department value(7,'sales')";
+        //System.out.println(st.executeUpdate(insertDep));
+
+        String alterDdep = "update department set name ='QA' where id =7  ";
+        System.out.println(st.executeUpdate(alterDdep));
+
         connection.close();
 
     }
