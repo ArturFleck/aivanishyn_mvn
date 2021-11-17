@@ -12,13 +12,19 @@ public class DataBase {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
-        Class.forName("com.mysql.jdbc.Driver");
+        //Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection(URL, USER, pass);
 
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("select * from employee");
         System.out.println(rs.getMetaData().getTableName(1));
         System.out.println(rs.getMetaData().getColumnCount());
+
+        for (int i = 1; i <= 4; i++) {
+            System.out.print("Column name: " + rs.getMetaData().getColumnName(i) + "  ");
+            System.out.print("Column size: " + rs.getMetaData().getColumnDisplaySize(i) + "  ");
+            System.out.println("Column type: " + rs.getMetaData().getColumnTypeName(i) + "  ");
+        }
 
 /*        while (rs.next()) {
             int id = rs.getInt("ID");
