@@ -15,7 +15,6 @@ public class Test_DBUnivarsity {
     public static void main(String[] args) throws SQLException {
 
         Connection connection = DriverManager.getConnection(URL, USER, pass);
-
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("select * from students");
         System.out.println(rs.getMetaData().getTableName(1));
@@ -38,32 +37,21 @@ public class Test_DBUnivarsity {
             Students studentN = new Students(id, first_name, last_name, groupId, yearOfAdmission);
             students.add(studentN);
         }
+        connection.close();
 
-        //System.out.println(students.get(1));
-
-        System.out.println( students.stream()
-                .filter(w->w.getId()==11)
-                .collect(Collectors.toList())
-        );
-
+        // Task 1
         System.out.println( getStudentById(students,13));
-
-        //System.out.println(students);
 
         //String alterDep = "update department set name='QA' where id=7";
         //System.out.println(st.executeUpdate(alterDep));
 
-/*        for (int i=0; i<students.size(); i++){
-            System.out.println(students.get(i));
-        }*/
 
-        connection.close();
     }
+
 
     public static List<Students> getStudentById(List<Students> students , int id){
         return students.stream()
                     .filter(w->w.getId()==id)
                     .collect(Collectors.toList());
     }
-
 }
