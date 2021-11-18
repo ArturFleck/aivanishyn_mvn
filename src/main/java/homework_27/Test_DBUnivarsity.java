@@ -46,6 +46,8 @@ public class Test_DBUnivarsity {
                 .collect(Collectors.toList())
         );
 
+        System.out.println( getStudentById(students,13));
+
         //System.out.println(students);
 
         //String alterDep = "update department set name='QA' where id=7";
@@ -58,12 +60,10 @@ public class Test_DBUnivarsity {
         connection.close();
     }
 
-    void getStudentById(int id){
-
-        for(int i=0; i<100;i++ ){
-
-        }
-
+    public static List<Students> getStudentById(List<Students> students , int id){
+        return students.stream()
+                    .filter(w->w.getId()==id)
+                    .collect(Collectors.toList());
     }
 
 }

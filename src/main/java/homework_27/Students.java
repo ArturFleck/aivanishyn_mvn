@@ -18,12 +18,12 @@ public class Students {
 
     @Override
     public String toString() {
-        return "Students{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+        String result = "id=" + id +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
                 ", groupID=" + groupID +
                 ", yearOfAdmission=" + yearOfAdmission +
                 "}\n";
+        return result;
     }
 }
