@@ -3,6 +3,7 @@ package homework_27;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Test_DBUnivarsity {
@@ -17,33 +18,56 @@ public class Test_DBUnivarsity {
         Connection connection = DriverManager.getConnection(URL, USER, pass);
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("select * from students");
-        System.out.println(rs.getMetaData().getTableName(1));
+        /*System.out.println(rs.getMetaData().getTableName(1));
         System.out.println(rs.getMetaData().getColumnCount());
 
         for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
             System.out.print("Column name: " + rs.getMetaData().getColumnName(i) + "  ");
             System.out.print("Column size: " + rs.getMetaData().getColumnDisplaySize(i) + "  ");
             System.out.println("Column type: " + rs.getMetaData().getColumnTypeName(i) + "  ");
-        }
+        }*/
         List<Students> students = new ArrayList<>();
 
         while (rs.next()) {
             int id = rs.getInt("id");
-            String first_name = rs.getString("first_name");
-            String last_name = rs.getString("last_name");
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
             int groupId = rs.getInt("groupId");
             int yearOfAdmission = rs.getInt("yearOfAdmission");
 
-            Students studentN = new Students(id, first_name, last_name, groupId, yearOfAdmission);
+            Students studentN = new Students(id, firstName, lastName, groupId, yearOfAdmission);
             students.add(studentN);
         }
-        connection.close();
 
         // Task 1
-        System.out.println( getStudentById(students,13));
+        int studId = 12;
 
+        StudentService s = new StudentService();
+        System.out.println( s.getStudentByID(studId));
+
+        System.out.println( getStudentById(students,studId).toString().replace("[","").replace("]",""));
+
+        rs = st.executeQuery("select * from students where id=" + studId);
+        String res = null;
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            int groupId = rs.getInt("groupId");
+            int yearOfAdmission = rs.getInt("yearOfAdmission");
+            res= "id:" +id+" firstName:" + firstName + " lastName:" +lastName+ " groupId:" +groupId +" yearOfAdmission:" + yearOfAdmission;
+        }
+        System.out.println(res);
+
+        System.out.println("----------");
+        // Task 4
+        //System.out.println(getStudentListByLastName(students,"Petrov"));
+        s.getStudentListByLastName("Petrov");
+
+        connection.close();
         //String alterDep = "update department set name='QA' where id=7";
         //System.out.println(st.executeUpdate(alterDep));
+
 
 
     }
@@ -54,4 +78,14 @@ public class Test_DBUnivarsity {
                     .filter(w->w.getId()==id)
                     .collect(Collectors.toList());
     }
+
+    boolean deleteStudentById(int id){
+        return true;
+    }
+
+   /* public static List<Students> getStudentListByLastName(List<Students> students, String lastName){
+        return students.stream()
+                .filter(w-> Objects.equals(w.getLastName(), lastName))
+                .collect(Collectors.toList());
+    }*/
 }

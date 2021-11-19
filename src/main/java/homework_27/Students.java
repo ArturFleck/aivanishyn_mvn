@@ -1,11 +1,8 @@
 package homework_27;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -14,18 +11,17 @@ public class Students {
     private int id;
     private String firstName;
     private String lastName;
-    private int groupID;
+    private int groupId;
     private int yearOfAdmission;
-
 
     @Override
     public String toString() {
-        String result = "id=" + id +
+        String result = "Student id=" + id +
                 ", firstName=" + firstName +
                 ", lastName=" + lastName +
-                ", groupID=" + groupID +
+                ", groupId=" + groupId +
                 ", yearOfAdmission=" + yearOfAdmission +
-                "}\n";
+                "\n";
         return result;
     }
 }
