@@ -42,8 +42,8 @@ public class Test_DBUnivarsity {
         // Task 1
         int studId = 12;
 
-        StudentService s = new StudentService();
-        System.out.println( s.getStudentByID(studId));
+        StudentService studentServ = new StudentService();
+        System.out.println( studentServ.getStudentByID(studId));    // from StudentService
 
         System.out.println( getStudentById(students,studId).toString().replace("[","").replace("]",""));
 
@@ -60,15 +60,18 @@ public class Test_DBUnivarsity {
         System.out.println(res);
 
         System.out.println("----------");
+
         // Task 4
-        //System.out.println(getStudentListByLastName(students,"Petrov"));
-        s.getStudentListByLastName("Petrov");
+        System.out.println(studentServ.getStudenByLastName("Smith"));    // from StudentService
+
+        System.out.println(getStudentListByLastName(students,"Petrov").toString().replace("[","").replace("]",""));
+
 
         connection.close();
+
+
         //String alterDep = "update department set name='QA' where id=7";
         //System.out.println(st.executeUpdate(alterDep));
-
-
 
     }
 
@@ -79,13 +82,13 @@ public class Test_DBUnivarsity {
                     .collect(Collectors.toList());
     }
 
-    boolean deleteStudentById(int id){
-        return true;
-    }
-
-   /* public static List<Students> getStudentListByLastName(List<Students> students, String lastName){
+    public static List<Students> getStudentListByLastName(List<Students> students, String lastName){
         return students.stream()
                 .filter(w-> Objects.equals(w.getLastName(), lastName))
                 .collect(Collectors.toList());
-    }*/
+    }
+
+    boolean deleteStudentById(int id){
+        return true;
+    }
 }
