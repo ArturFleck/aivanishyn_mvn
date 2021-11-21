@@ -8,10 +8,6 @@ public class StudentService {
     private static final String USER = "root";
     private static final String pass = "root";
 
-
-    public StudentService() throws SQLException {
-    }
-
     Students getStudentByID(int id) throws SQLException {
         Connection connection = DriverManager.getConnection(URL, USER, pass);
         Statement st = connection.createStatement();
