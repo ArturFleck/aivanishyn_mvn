@@ -24,15 +24,15 @@ public class Test_DBUnivarsity {
         int studId = 12;
 
         StudentService studentServ = new StudentService();
-        System.out.println( studentServ.getStudentByID(studId));    // from StudentService
+        System.out.println(studentServ.getStudentByID(studId));    // from StudentService
 
-        System.out.println( getStudentById(students,studId).toString().replace("[","").replace("]",""));
+        System.out.println(getStudentById(students, studId).toString().replace("[", "").replace("]", ""));
 
         System.out.println("----------");
 
         System.out.println(studentServ.getStudenByLastName("Petrov"));
 
-        System.out.println( deleteStudentById(1));
+        System.out.println(deleteStudentById(1));
 
         // Task 4
         //System.out.println(studentServ.getStudenByLastName("Smith"));    // from StudentService
@@ -69,29 +69,36 @@ public class Test_DBUnivarsity {
     }
 
 
-    public static List<Students> getStudentById(List<Students> students , int id){
+    public static List<Students> getStudentById(List<Students> students, int id) {
         return students.stream()
-                    .filter(w->w.getId()==id)
-                    .collect(Collectors.toList());
+                .filter(w -> w.getId() == id)
+                .collect(Collectors.toList());
     }
 
-    public static List<Students> getStudentListByLastName(List<Students> students, String lastName){
+    public static List<Students> getStudentListByLastName(List<Students> students, String lastName) {
         return students.stream()
-                .filter(w-> Objects.equals(w.getLastName(), lastName))
+                .filter(w -> Objects.equals(w.getLastName(), lastName))
                 .collect(Collectors.toList());
     }
 
 
     public static boolean deleteStudentById(int id) {
-        boolean val=false;
+        boolean val = false;
         try {
+            StudentService studentServ = new StudentService();
+            if (studentServ.getStudentByID(id)==null){
+                System.out.println("The record about student with id:" + id + " doesn't exist in DataBase");
+                return false;}
+            else
+            {
             Connection connection = DriverManager.getConnection(URL, USER, pass);
             PreparedStatement st1 = connection.prepareStatement("DELETE FROM rates WHERE studentId = " + id);
             PreparedStatement st2 = connection.prepareStatement("DELETE FROM students WHERE id = " + id);
             st1.executeUpdate();
             st2.executeUpdate();
-            val=true;
-        } catch(Exception e) {
+                System.out.println("The record was deleted from DataBase successfully");
+            val = true;}
+        } catch (Exception e) {
             System.out.println(e);
             val = false;
         }
