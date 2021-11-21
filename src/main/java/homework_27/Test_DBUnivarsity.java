@@ -15,49 +15,10 @@ public class Test_DBUnivarsity {
 
     public static void main(String[] args) throws SQLException {
 
-        Connection connection = DriverManager.getConnection(URL, USER, pass);
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select * from students");
         List<Students> students = new ArrayList<>();
 
-        /*System.out.println(rs.getMetaData().getTableName(1));
-        System.out.println(rs.getMetaData().getColumnCount());
-        for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-            System.out.print("Column name: " + rs.getMetaData().getColumnName(i) + "  ");
-            System.out.print("Column size: " + rs.getMetaData().getColumnDisplaySize(i) + "  ");
-            System.out.println("Column type: " + rs.getMetaData().getColumnTypeName(i) + "  ");
-        }*/
-
-        //-----  preparedStatement
-        /*String sql = "select * from people where firstname=? and lastname=?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, "John");
-        preparedStatement.setString(2, "Smith");
-        ResultSet rest = preparedStatement.executeQuery();*/
-
-        /*while (rest.next()) {
-            int id = rest.getInt("id");
-            String firstName = rest.getString("first_name");
-            String lastName = rest.getString("last_name");
-            int groupId = rest.getInt("groupId");
-            int yearOfAdmission = rest.getInt("yearOfAdmission");
-
-            Students studentN = new Students(id, firstName, lastName, groupId, yearOfAdmission);
-            students.add(studentN);
-        }*/
-        //-----
-
-
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String firstName = rs.getString("first_name");
-            String lastName = rs.getString("last_name");
-            int groupId = rs.getInt("groupId");
-            int yearOfAdmission = rs.getInt("yearOfAdmission");
-
-            Students studentN = new Students(id, firstName, lastName, groupId, yearOfAdmission);
-            students.add(studentN);
-        }
+        readDB(students);
+        //System.out.println(students);
 
         // Task 1
         int studId = 12;
@@ -67,37 +28,44 @@ public class Test_DBUnivarsity {
 
         System.out.println( getStudentById(students,studId).toString().replace("[","").replace("]",""));
 
-        rs = st.executeQuery("select * from students where id=" + studId);
-        String res = null;
+        System.out.println("----------");
+
+        System.out.println(studentServ.getStudenByLastName("Petrov"));
+
+        System.out.println( deleteStudentById(1));
+
+        // Task 4
+        //System.out.println(studentServ.getStudenByLastName("Smith"));    // from StudentService
+
+        //System.out.println(getStudentListByLastName(students,"Petrov").toString().replace("[","").replace("]",""));
+
+
+        //connection.close();
+
+
+        //String alterDep = "update department set name='QA' where id=7";
+        //System.out.println(st.executeUpdate(alterDep));
+
+    }
+
+    public static void readDB(List<Students> students) throws SQLException {
+        students.clear();
+
+        Connection connection = DriverManager.getConnection(URL, USER, pass);
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery("select * from students");
+
         while (rs.next()) {
             int id = rs.getInt("id");
             String firstName = rs.getString("first_name");
             String lastName = rs.getString("last_name");
             int groupId = rs.getInt("groupId");
             int yearOfAdmission = rs.getInt("yearOfAdmission");
-            res= "id:" +id+" firstName:" + firstName + " lastName:" +lastName+ " groupId:" +groupId +" yearOfAdmission:" + yearOfAdmission;
+
+            Students studentN = new Students(id, firstName, lastName, groupId, yearOfAdmission);
+            students.add(studentN);
         }
-        System.out.println(res);
-
-        System.out.println("----------");
-
-
-        deleteStudentById(1);
-        System.out.println(students);
-
-
-        // Task 4
-        System.out.println(studentServ.getStudenByLastName("Smith"));    // from StudentService
-
-        System.out.println(getStudentListByLastName(students,"Petrov").toString().replace("[","").replace("]",""));
-        System.out.println(studentServ.getStudenByLastName("Petrov"));
-
         connection.close();
-
-
-        //String alterDep = "update department set name='QA' where id=7";
-        //System.out.println(st.executeUpdate(alterDep));
-
     }
 
 
@@ -114,13 +82,19 @@ public class Test_DBUnivarsity {
     }
 
 
-    public static void deleteStudentById(int id) {
+    public static boolean deleteStudentById(int id) {
+        boolean val=false;
         try {
             Connection connection = DriverManager.getConnection(URL, USER, pass);
-            PreparedStatement st = connection.prepareStatement("DELETE FROM students WHERE id = " + id);
-            st.executeUpdate();
+            PreparedStatement st1 = connection.prepareStatement("DELETE FROM rates WHERE studentId = " + id);
+            PreparedStatement st2 = connection.prepareStatement("DELETE FROM students WHERE id = " + id);
+            st1.executeUpdate();
+            st2.executeUpdate();
+            val=true;
         } catch(Exception e) {
             System.out.println(e);
+            val = false;
         }
+        return val;
     }
 }
