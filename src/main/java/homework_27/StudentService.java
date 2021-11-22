@@ -28,14 +28,14 @@ public class StudentService {
         return stud;
     }
 
-    public static Students getData(ResultSet rs, Students stud) throws SQLException {
+     Students getData(ResultSet rs, Students stud) throws SQLException {
         while (rs.next()) {
-            int id2 = rs.getInt("id");
+            int id = rs.getInt("id");
             String firstName = rs.getString("first_name");
             String lastName = rs.getString("last_name");
             int groupId = rs.getInt("groupId");
             int yearOfAdmission = rs.getInt("yearOfAdmission");
-            stud = new Students(id2, firstName, lastName, groupId, yearOfAdmission);
+            stud = new Students(id, firstName, lastName, groupId, yearOfAdmission);
         }
         return stud;
     }

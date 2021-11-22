@@ -33,18 +33,18 @@ public class Test_DBUnivarsity {
         System.out.println(studentServ.getStudenByLastName("Petrov"));
 
         System.out.println(deleteStudentById(1));
+        //System.out.println(deleteStudentById(1));
+
+        createNewStudent("Petr","Petrov",1,2003);
+        createNewStudent(1,"Max","Brenth",3,2009);
+        readDB(students);
 
         // Task 4
-        //System.out.println(studentServ.getStudenByLastName("Smith"));    // from StudentService
+        System.out.println(studentServ.getStudenByLastName("Smith"));    // from StudentService
+        System.out.println(getStudentListByLastName(students,"Petrov").toString().replace("[","").replace("]",""));
 
-        //System.out.println(getStudentListByLastName(students,"Petrov").toString().replace("[","").replace("]",""));
-
-
-        //connection.close();
-
-
-        //String alterDep = "update department set name='QA' where id=7";
-        //System.out.println(st.executeUpdate(alterDep));
+        readDB(students);
+        System.out.println(students);
 
     }
 
@@ -82,26 +82,40 @@ public class Test_DBUnivarsity {
     }
 
 
-    public static boolean deleteStudentById(int id) {
+    public static boolean deleteStudentById(int id) throws SQLException {
         boolean val = false;
-        try {
+
             StudentService studentServ = new StudentService();
-            if (studentServ.getStudentByID(id)==null){
+            if (studentServ.getStudentByID(id) == null) {
                 System.out.println("The record about student with id:" + id + " doesn't exist in DataBase");
-                return false;}
-            else
-            {
-            Connection connection = DriverManager.getConnection(URL, USER, pass);
-            PreparedStatement st1 = connection.prepareStatement("DELETE FROM rates WHERE studentId = " + id);
-            PreparedStatement st2 = connection.prepareStatement("DELETE FROM students WHERE id = " + id);
-            st1.executeUpdate();
-            st2.executeUpdate();
+                return false;
+            } else {
+                Connection connection = DriverManager.getConnection(URL, USER, pass);
+                PreparedStatement st1 = connection.prepareStatement("DELETE FROM rates WHERE studentId = " + id);
+                PreparedStatement st2 = connection.prepareStatement("DELETE FROM students WHERE id = " + id);
+                st1.executeUpdate();
+                st2.executeUpdate();
+                connection.close();
                 System.out.println("The record was deleted from DataBase successfully");
-            val = true;}
-        } catch (Exception e) {
-            System.out.println(e);
-            val = false;
-        }
+                val = true;
+            }
+
         return val;
+    }
+
+    public static void createNewStudent(int id, String firstName, String lastName, int groupId, int yearOfAdmission) throws SQLException {
+        Connection connection = DriverManager.getConnection(URL, USER, pass);
+        PreparedStatement st = connection.prepareStatement("insert into students value(" + id + ",'" + firstName + "','" + lastName + "'," + groupId + "," + yearOfAdmission + ")");
+        st.executeUpdate();
+        connection.close();
+        System.out.println("New student was added to DB");
+    }
+
+    public static void createNewStudent(String firstName, String lastName, int groupId, int yearOfAdmission) throws SQLException {
+        Connection connection = DriverManager.getConnection(URL, USER, pass);
+        PreparedStatement st = connection.prepareStatement("insert into students value('" + firstName + "','" + lastName + "'," + groupId + "," + yearOfAdmission + ")");
+        st.executeUpdate();
+        connection.close();
+        System.out.println("New student was added to DB");
     }
 }
