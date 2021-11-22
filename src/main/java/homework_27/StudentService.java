@@ -13,7 +13,7 @@ public class StudentService {
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("select * from students where id=" + id);
         Students stud = null;
-        stud=getData(rs, stud);
+        stud = getData(rs, stud);   // going to DB
         connection.close();
         return stud;
     }
@@ -21,14 +21,15 @@ public class StudentService {
     Students getStudenByLastName(String lastName) throws SQLException {
         Connection connection = DriverManager.getConnection(URL, USER, pass);
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select * from students where last_name='" + lastName+"'");
+        ResultSet rs = st.executeQuery("select * from students where last_name='" + lastName + "'");
         Students stud = null;
-        stud=getData(rs, stud);
+        stud = getData(rs, stud);   // going to DB
         connection.close();
         return stud;
     }
 
-     Students getData(ResultSet rs, Students stud) throws SQLException {
+    // take from DB what needed at resultSet
+    private Students getData(ResultSet rs, Students stud) throws SQLException {
         while (rs.next()) {
             int id = rs.getInt("id");
             String firstName = rs.getString("first_name");
