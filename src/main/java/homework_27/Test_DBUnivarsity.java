@@ -26,13 +26,15 @@ public class Test_DBUnivarsity {
 
         StudentService studentServ = new StudentService();
         System.out.println(studentServ.getStudentByID(studId));    // from StudentService
+        System.out.println(studentServ.getStudenByLastName("Mayer"));
+        System.out.println(studentServ.getStudenByLastName("Mayer"));
 
         System.out.println(getStudentById(students, studId).toString().replace("[", "").replace("]", ""));
 
         // Task 2
         System.out.println("---------- Task2");
 
-        System.out.println(deleteStudentById(1));
+        /*System.out.println(deleteStudentById(1));
 
         createNewStudent(1, "Max", "Brenth", 3, 2009);
         createNewStudent("Petr", "Petrov", 1, 2003);
@@ -45,7 +47,7 @@ public class Test_DBUnivarsity {
         // Task 4
         System.out.println("\n---------- Task4");
         System.out.println(studentServ.getStudenByLastName("Smith"));    // from StudentService
-        System.out.println(getStudentListByLastName(students, "Petrov").toString().replace("[", "").replace("]", ""));
+        System.out.println(getStudentListByLastName(students, "Petrov").toString().replace("[", "").replace("]", ""));*/
     }
 
     public static void readDB(List<Students> students) throws SQLException {

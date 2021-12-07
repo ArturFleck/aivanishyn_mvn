@@ -3,13 +3,10 @@ package homework_27;
 import java.sql.*;
 
 public class StudentService {
-    private static final String DBName = "university";
-    private static final String URL = "jdbc:mysql://localhost:3306/" + DBName;
-    private static final String USER = "root";
-    private static final String pass = "root";
+
 
     Students getStudentByID(int id) throws SQLException {
-        Connection connection = DriverManager.getConnection(URL, USER, pass);
+        Connection connection = ConnectionUtil.getConnection();
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("select * from students where id=" + id);
         Students stud = null;
@@ -19,7 +16,7 @@ public class StudentService {
     }
 
     Students getStudenByLastName(String lastName) throws SQLException {
-        Connection connection = DriverManager.getConnection(URL, USER, pass);
+        Connection connection = ConnectionUtil.getConnection();
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery("select * from students where last_name='" + lastName + "'");
         Students stud = null;
